@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps du pauvre</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css"/>
+
+</head>
+<body>
+    
+    <div id="city-form">
+        <label for="city1">Ville de départ :</label><br>
+        <input type="text" id="city1" placeholder="Entrer la ville de départ"><br>
+        <label for="city2">Ville d'arrivée :</label><br>
+        <input type="text" id="city2" placeholder="Entrer la ville d'arrivée"><br>
+        <button id="calculate-route">Calculer l'itinéraire</button>
+
+        <div id="info">
+            <strong>Itinéraire :</strong>
+            <p id="distanceTotal"></p>
+            <p id="dureeTrajet"></p>
+            <p id="tempsRecharge"></p>
+            <p id="dureeTrajetRechargeTotal"></p>
+            <p id="prixTotal"></p>
+        </div>
+    </div>
+
+    <div id="map"></div>
+	
+    <div id="vehicule">
+        <div id="vehicle-list">
+            <h3>Liste des véhicules électriques</h3>
+        </div>
+        <div id="vehicle-details"></div>
+    </div>
+
+    <div id="loading-modal" class="modal">
+        <div class="modal-content">
+            <p>Chargement en cours...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Custom JS -->
+    <script src="utils.js"></script>
+    <script src="service_itineraire.js"></script>
+	<script src="service_nominatim.js"></script>
+	<script src="service_borne.js"></script>
+	<script src="service_vehicule.js"></script>
+    <script src="soap_client.js"></script>
+
+    
+
+    <script>
+		const map = L.map('map').setView([48.8566, 2.3522], 10);
+	
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '© OpenStreetMap contributors'
+		}).addTo(map);
+		
+		// Créer un groupe de couches pour gérer les éléments ajoutés à la carte
+		const layerBalise = L.layerGroup().addTo(map);
+        const layerTrajet = L.layerGroup().addTo(map);
+
+        let nombreArrets = 0;
+        let sommeTempsRecharge = 0;
+        let distanceTotal = 0;
+        let tempsTrajet = 0;
+        let tempsTrajetRechargeTotal = 0;
+        let coutTotal = 0;
+	
+        document.getElementById('calculate-route').addEventListener('click', async () => {
+            
+			const city1 = document.getElementById('city1').value;
+			const city2 = document.getElementById('city2').value;
+
+            if (!vehiculeSelectionne || Object.keys(vehiculeSelectionne).length === 0) {
+                alert('Aucun véhicule sélectionné. Veuillez choisir un véhicule.');
+                return;
+            }
+
+			if (city1 && city2) {
+				console.log(`Calcul de l'itinéraire entre ${city1} et ${city2}`);
+
+				try {
+					const start = await getCoordinates(city1);  
+					const end = await getCoordinates(city2);
+
+					if (start && end) {
+						rechercherItineraireAutonomie(start, end, vehiculeSelectionne.range.chargetrip_range.worst);
+					} else {
+						alert("Impossible de trouver les coordonnées d'une des villes.");
+					}
+
+				} catch (error) {
+					console.error("Erreur lors de la récupération des coordonnées ou du calcul d'itinéraire :", error);
+				}
+			} else {
+				alert('Veuillez entrer les deux villes.');
+			}
+		});
+
+    </script>
+</body>
+</html>
