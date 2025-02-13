@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						// Afficher les détails du véhicule sélectionné
 						details.style.display = "block";
 						details.innerHTML = `
-							<h2>Détails du véhicule</h2>
+							<h3>Détails du véhicule</h3>
 							<img src="${vehiculeSelectionne.media?.image?.thumbnail_url}" alt="${vehiculeSelectionne.naming.make} ${vehiculeSelectionne.naming.model}">
 							<p><strong>Marque :</strong> ${vehiculeSelectionne.naming.make}</p>
 							<p><strong>Modèle :</strong> ${vehiculeSelectionne.naming.model}</p>

@@ -73,6 +73,22 @@ html, body, #root {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+#calculate-route {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+#calculate-route:hover {
+    background-color: #2980b9;
+}
+
+
 .modal {
     display: none;
     position: fixed;
@@ -98,6 +114,25 @@ html, body, #root {
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
+
+#back-to-list {
+    display: inline-block;
+    background-color: #3498db; /* Bleu */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#back-to-list:hover {
+    background-color: #2980b9; /* Bleu foncé au survol */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }

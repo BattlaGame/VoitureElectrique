@@ -67,12 +67,13 @@
     <script src="soap_client.js"></script>
 
     <script>
-		const map = L.map('map').setView([48.8566, 2.3522], 10);
-	
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '© OpenStreetMap contributors'
-		}).addTo(map);
+		const map = L.map('map').setView([46.603354, 1.888334], 6);  // Coordonnées centrées sur la France
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
 		
 		// Créer un groupe de couches pour gérer les éléments ajoutés à la carte
 		const layerBalise = L.layerGroup().addTo(map);
