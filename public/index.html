@@ -119,8 +119,8 @@
 				console.log(`Calcul de l'itinéraire entre ${city1} et ${city2}`);
 
 				try {
-					const start = await getCoordinates(city1);  
-					const end = await getCoordinates(city2);
+					const start = await getCoordonnees(city1);  
+					const end = await getCoordonnees(city2);
 
 					if (start && end) {
 						rechercherItineraireAutonomie(start, end, vehiculeSelectionne.range.chargetrip_range.worst);

@@ -1,5 +1,5 @@
-function getCoordinates(city) {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`;
+function getCoordonnees(ville) {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(ville)}&format=json&limit=1`;
 
     return fetch(url)
         .then(response => {
@@ -10,7 +10,7 @@ function getCoordinates(city) {
         })
         .then(data => {
             if (data.length === 0) {
-                throw new Error(`Aucune coordonnée trouvée pour la ville : ${city}`);
+                throw new Error(`Aucune coordonnée trouvée pour la ville : ${ville}`);
             }
 
             const latitude = parseFloat(data[0].lat);

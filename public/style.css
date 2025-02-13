@@ -26,6 +26,32 @@ html, body, #root {
     width: 300px; /* Ajout d'une largeur fixe pour la section des véhicules */
 }
 
+/* Style de la liste */
+#vehicle-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Effet de survol */
+#vehicle-list li:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style du texte */
+#vehicle-list li span {
+    flex-grow: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+
 #vehicule h3 {
     margin-top: 0; /* Évite l'espace supplémentaire en haut du titre */
 }

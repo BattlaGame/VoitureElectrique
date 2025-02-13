@@ -97,24 +97,8 @@ app.get('/calculerTrajet', (req, res) => {
     });
 });
 
-app.get('/export-json', (req, res) => {
-    const { villeStart, villeEnd } = req.query;
-
-    if (!villeStart || !villeEnd) {
-        return res.status(400).json({ error: 'Les paramètres "villeStart" et "villeEnd" sont requis.' });
-    }
-
-    // Création des données à envoyer sous forme de JSON
-    const data = {
-        villeStart: villeStart,
-        villeEnd: villeEnd,
-        distance: "Calculée en fonction des villes",  // Tu pourrais y ajouter le calcul de distance si nécessaire
-        timestamp: new Date().toISOString()
-    };
-
-    // Envoi directement du JSON sans création de fichier
-    res.json(data);
-});
+const exportJsonRoute = require('./routes/export-json');
+app.use(exportJsonRoute);
 
 // Démarrer le serveur
 app.listen(port, () => {

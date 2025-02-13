@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			vehicles.forEach(vehicle => {
 				const li = document.createElement("li");
 				const img = document.createElement("img");
-				img.src = vehicle.media?.image?.thumbnail_url || "https://via.placeholder.com/50";
+				img.src = vehicle.media?.image?.thumbnail_url;
 				img.alt = `${vehicle.naming.make} ${vehicle.naming.model}`;
 				
 				const text = document.createElement("span");
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						details.style.display = "block";
 						details.innerHTML = `
 							<h2>Détails du véhicule</h2>
-							<img src="${vehiculeSelectionne.media?.image?.thumbnail_url || 'https://via.placeholder.com/100'}" alt="${vehiculeSelectionne.naming.make} ${vehiculeSelectionne.naming.model}">
+							<img src="${vehiculeSelectionne.media?.image?.thumbnail_url}" alt="${vehiculeSelectionne.naming.make} ${vehiculeSelectionne.naming.model}">
 							<p><strong>Marque :</strong> ${vehiculeSelectionne.naming.make}</p>
 							<p><strong>Modèle :</strong> ${vehiculeSelectionne.naming.model}</p>
 							<p><strong>Meilleur autonomie :</strong> ${vehiculeSelectionne.range.chargetrip_range.best} km</p>

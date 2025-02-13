@@ -6,9 +6,6 @@ async function obtenirStationRechargeProche(coords, typePrise, capaciteBatterie,
     
     const [latitude, longitude] = coords;
     let url = `https://odre.opendatasoft.com/api/records/1.0/search/?dataset=bornes-irve&geofilter.distance=${latitude},${longitude},${rayon}&rows=1&sort=dist`;
-
-    console.log(url);
-
     
     if (typePrise) {
         url += `&q=${encodeURIComponent(typePrise)}`;

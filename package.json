@@ -12,6 +12,7 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@turf/turf": "^7.2.0",
     "dotenv": "^16.4.7",
     "easysoap": "^2.3.0",
     "express": "^4.21.2",
