@@ -66,12 +66,12 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
                         }
         
                         const route = data.features[0].properties.segments[0];
-                        const intermediareCoordonnees = data.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+                        const intermediaireCoordonnees = data.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
         
                         distanceTotal += route.distance / 1000;
                         tempsTrajet += route.duration / 3600;
                         
-                        routeCoordonnees.push(...intermediareCoordonnees);
+                        routeCoordonnees.push(...intermediaireCoordonnees);
                         dernierPoint = [borne.lat, borne.lon];
         
                         distanceParcouru = 0;
@@ -94,7 +94,6 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
 
         distanceTotal += finalRoute.distance / 1000;
         tempsTrajet += finalRoute.duration / 3600;
-
         routeCoordonnees.push(...finalCoordonnees);
 
         // Tracer l'itinéraire final
@@ -114,7 +113,7 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
                     <h4>Itinéraire avec Bornes</h4>
                     <p><strong>Distance Totale :</strong> ${distanceTotal.toFixed(2)} km</p>
                     <p><strong>Temps total :</strong> ${tempsTrajet.toFixed(2)} h</p>
-                    <p><strong>Temps de Recharge Total :</strong> ${sommeTempsRecharge} h</p>
+                    <p><strong>Temps de Recharge Total :</strong> ${sommeTempsRecharge.toFixed(2)} h</p>
                     <p><strong>Nombre d'arrêts :</strong> ${nombreArrets}</p>
                 </div>
             `;

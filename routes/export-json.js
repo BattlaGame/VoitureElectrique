@@ -21,8 +21,16 @@ router.get('/export-json', async (req, res) => {
         if (itineraireData) {
             // Créer le JSON final avec toutes les informations
             const data = {
-                villeStart: villeStart,
-                villeEnd: villeEnd,
+                villeStart: {
+                    nom: villeStart,
+                    latitude: start[0],
+                    longitude: start[1]
+                },
+                villeEnd: {
+                    nom: villeEnd,
+                    latitude: end[0],
+                    longitude: end[1]
+                },
                 autonomie: autonomie,
                 distance: itineraireData.distanceTotal,  // Distance calculée
                 tempsTrajet: itineraireData.tempsTrajet,  // Temps de trajet total en heures
@@ -82,9 +90,10 @@ async function rechercherItineraireAutonomieJSON(start, end, autonomie, capacite
         const data = await response.json();
 
         const coordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
-        let newRouteCoordinates = [start];
-        let lastPoint = start;
+        let routeCoordonnees = [start];
+        let dernierPoint = start;
         let distanceParcouru = 0;
+        let rayonRecherche = 5000;
 
         for (let i = 1; i < coordinates.length; i++) {
             let pointAvant = coordinates[i - 1];
@@ -95,10 +104,7 @@ async function rechercherItineraireAutonomieJSON(start, end, autonomie, capacite
                 turf.point([pointActuel[1], pointActuel[0]]),
                 { units: 'kilometers' }  // Distance en kilomètres
             );
-            
             distanceParcouru += segmentDistance;
-
-            let rayonRecherche = 5000;
 
             if (distanceParcouru >= autonomie) {
                 let pointStop = pointActuel;
@@ -127,7 +133,7 @@ async function rechercherItineraireAutonomieJSON(start, end, autonomie, capacite
                     sommeTempsRecharge += borne.tempsRecharge;
 
                     try {
-                        let response = await fetch(`https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${lastPoint[1]},${lastPoint[0]}&end=${borne.lon},${borne.lat}`);
+                        let response = await fetch(`https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${dernierPoint[1]},${dernierPoint[0]}&end=${borne.lon},${borne.lat}`);
                         let data = await response.json();
 
                         if (!data.features || data.features.length === 0) {
@@ -135,14 +141,15 @@ async function rechercherItineraireAutonomieJSON(start, end, autonomie, capacite
                         }
 
                         const route = data.features[0].properties.segments[0];
-                        const intermediateCoordinates = data.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+                        const intermediaireCoordonnees = data.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
 
                         distanceTotal += route.distance / 1000;
                         tempsTrajet += route.duration / 3600;
 
-                        newRouteCoordinates.push(...intermediateCoordinates);
-                        lastPoint = [borne.lat, borne.lon];
+                        routeCoordonnees.push(...intermediaireCoordonnees);
+                        dernierPoint = [borne.lat, borne.lon];
                         distanceParcouru = 0;
+                        rayonRecherche = 5000;
                     } catch (error) {
                         console.error("Erreur lors de la récupération de l'itinéraire intermédiaire :", error);
                     }
@@ -150,14 +157,14 @@ async function rechercherItineraireAutonomieJSON(start, end, autonomie, capacite
             }
         }
 
-        const finalResponse = await fetch(`https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${lastPoint[1]},${lastPoint[0]}&end=${end[1]},${end[0]}`);
+        const finalResponse = await fetch(`https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${dernierPoint[1]},${dernierPoint[0]}&end=${end[1]},${end[0]}`);
         const finalData = await finalResponse.json();
         const finalRoute = finalData.features[0].properties.segments[0];
-        const finalCoordinates = finalData.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
+        const finalCoordonnees = finalData.features[0].geometry.coordinates.map(([lng, lat]) => [lat, lng]);
 
         distanceTotal += finalRoute.distance / 1000;
         tempsTrajet += finalRoute.duration / 3600;
-        newRouteCoordinates.push(...finalCoordinates);
+        routeCoordonnees.push(...finalCoordonnees);
 
         return {
             distanceTotal: distanceTotal,
@@ -165,7 +172,7 @@ async function rechercherItineraireAutonomieJSON(start, end, autonomie, capacite
             sommeTempsRecharge: sommeTempsRecharge,
             nombreArrets: nombreArrets,
             stationsRecharge: stationsRecharge,
-            trajetPoints: newRouteCoordinates  // Ajout des points du trajet
+            trajetPoints: routeCoordonnees  // Ajout des points du trajet
         };
     } catch (error) {
         console.error('Erreur lors de la récupération des données de l\'API:', error);
