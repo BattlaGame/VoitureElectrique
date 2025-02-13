@@ -11,8 +11,8 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
     sommeTempsRecharge = 0;
     nombreArrets = 0;
 
-    L.marker(start).addTo(layerBalise).bindPopup('Départ');
-    L.marker(end).addTo(layerBalise).bindPopup('Arrivée');
+    L.marker(start, { icon: startMarker }).addTo(layerBalise).bindPopup('Départ');
+    L.marker(end, { icon: endMarker }).addTo(layerBalise).bindPopup('Arrivée');
 
     afficherChargement();
 
@@ -47,13 +47,16 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
                 }
         
                 if (borne) {
-                    L.marker([borne.lat, borne.lon]).addTo(layerBalise)
+                    
+                    
+                    L.marker([borne.lat, borne.lon], { icon: yellowMarker }).addTo(layerBalise)
                         .bindPopup(`
                             <strong>${borne.nom}</strong>
                             <br>${borne.adresse}
                             <br>Type: ${borne.type} - ${borne.puissance} KW
                             <br>Temps de recharge estimé : ${borne.tempsRecharge} h`)
                         .openPopup();
+                    
         
                     chargingStations.push([borne.lat, borne.lon]);
                     nombreArrets++;

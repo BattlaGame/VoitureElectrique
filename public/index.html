@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maps du pauvre</title>
+    
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    
+    <!-- Leaflet Awesome Markers CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.4/dist/leaflet.awesome-markers.css">
+    
+    <!-- Font Awesome (pour les icônes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css"/>
-
 </head>
 <body>
     
@@ -47,6 +54,10 @@
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Leaflet Awesome Markers JS -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.4/dist/leaflet.awesome-markers.min.js"></script>
+
     <!-- Custom JS -->
     <script src="utils.js"></script>
     <script src="service_itineraire.js"></script>
@@ -55,19 +66,37 @@
 	<script src="service_vehicule.js"></script>
     <script src="soap_client.js"></script>
 
-    
-
     <script>
 		const map = L.map('map').setView([48.8566, 2.3522], 10);
 	
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
-		attribution: '© OpenStreetMap contributors'
+			maxZoom: 19,
+			attribution: '© OpenStreetMap contributors'
 		}).addTo(map);
 		
 		// Créer un groupe de couches pour gérer les éléments ajoutés à la carte
 		const layerBalise = L.layerGroup().addTo(map);
         const layerTrajet = L.layerGroup().addTo(map);
+
+        var yellowMarker = L.AwesomeMarkers.icon({
+            icon: 'bolt', // Icône FontAwesome
+            markerColor: 'orange', // Utilise 'orange' qui est plus proche du jaune vif
+            prefix: 'fa',
+            extraClasses: 'fa-inverse' // Ajoute une meilleure visibilité à l'icône
+        });
+
+        var startMarker = L.AwesomeMarkers.icon({
+            icon: 'play', // Icône FontAwesome (symbole de départ)
+            markerColor: 'green', // Couleur du marqueur de départ
+            prefix: 'fa' // Utilisation de FontAwesome
+        });
+
+        var endMarker = L.AwesomeMarkers.icon({
+            icon: 'flag-checkered', // Icône FontAwesome (symbole d'arrivée)
+            markerColor: 'red', // Couleur du marqueur d'arrivée
+            prefix: 'fa' // Utilisation de FontAwesome
+        });
+
 
         let nombreArrets = 0;
         let sommeTempsRecharge = 0;
@@ -106,7 +135,6 @@
 				alert('Veuillez entrer les deux villes.');
 			}
 		});
-
     </script>
 </body>
 </html>
