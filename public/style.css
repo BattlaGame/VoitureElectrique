@@ -21,12 +21,11 @@ html, body, #root {
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;
     border-radius: 4px;
-    max-height: 60vh; /* Limite la hauteur à 60% de la fenêtre */
-    overflow-y: auto; /* Active le scroll vertical si le contenu dépasse */
-    width: 300px; /* Ajout d'une largeur fixe pour la section des véhicules */
+    max-height: 60vh;
+    overflow-y: auto;
+    width: 300px;
 }
 
-/* Style de la liste */
 #vehicle-list li {
     display: flex;
     align-items: center;
@@ -38,26 +37,23 @@ html, body, #root {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-/* Effet de survol */
 #vehicle-list li:hover {
     background-color: #f0f0f0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style du texte */
 #vehicle-list li span {
     flex-grow: 1;
     font-size: 14px;
     color: #333;
 }
 
-
 #vehicule h3 {
-    margin-top: 0; /* Évite l'espace supplémentaire en haut du titre */
+    margin-top: 0;
 }
 
 #vehicle-list img, #vehicle-details img {
-    max-width: 100px; /* Réduit la taille des images */
+    max-width: 100px;
     display: block;
     margin: 5px 0;
 }
@@ -99,12 +95,11 @@ html, body, #root {
     padding: 15px 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Pour être au-dessus du reste */
+    z-index: 1000;
     text-align: center;
     min-width: 200px;
 }
 
-/* Animation de chargement */
 .spinner {
     margin: 10px auto;
     width: 24px;
@@ -117,7 +112,7 @@ html, body, #root {
 
 #back-to-list {
     display: inline-block;
-    background-color: #3498db; /* Bleu */
+    background-color: #3498db;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -129,7 +124,7 @@ html, body, #root {
 }
 
 #back-to-list:hover {
-    background-color: #2980b9; /* Bleu foncé au survol */
+    background-color: #2980b9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 

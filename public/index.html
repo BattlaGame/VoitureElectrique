@@ -83,22 +83,22 @@
         const layerTrajet = L.layerGroup().addTo(map);
 
         var yellowMarker = L.AwesomeMarkers.icon({
-            icon: 'bolt', // Icône FontAwesome
-            markerColor: 'orange', // Utilise 'orange' qui est plus proche du jaune vif
+            icon: 'bolt',
+            markerColor: 'orange',
             prefix: 'fa',
-            extraClasses: 'fa-inverse' // Ajoute une meilleure visibilité à l'icône
+            extraClasses: 'fa-inverse'
         });
 
         var startMarker = L.AwesomeMarkers.icon({
-            icon: 'play', // Icône FontAwesome (symbole de départ)
-            markerColor: 'green', // Couleur du marqueur de départ
-            prefix: 'fa' // Utilisation de FontAwesome
+            icon: 'play',
+            markerColor: 'green',
+            prefix: 'fa'
         });
 
         var endMarker = L.AwesomeMarkers.icon({
-            icon: 'flag-checkered', // Icône FontAwesome (symbole d'arrivée)
-            markerColor: 'red', // Couleur du marqueur d'arrivée
-            prefix: 'fa' // Utilisation de FontAwesome
+            icon: 'flag-checkered',
+            markerColor: 'red',
+            prefix: 'fa'
         });
 
 
@@ -110,7 +110,7 @@
         let coutTotal = 0;
 	
         document.getElementById('calculate-route').addEventListener('click', async () => {
-            
+            afficherChargement();
 			const city1 = document.getElementById('city1').value;
 			const city2 = document.getElementById('city2').value;
 
