@@ -1,7 +1,7 @@
 function setDistance(distance) {
     const distanceElement = document.getElementById("distanceTotal");
     if (distanceElement) {
-        distanceElement.textContent = `Distance : ${distance.toFixed(2)} km`;
+        distanceElement.textContent = `Distance du trajet: ${distance.toFixed(2)} km`;
     }
 }
 
@@ -9,7 +9,7 @@ function setDuree(dureeHeure) {
     const dureeElement = document.getElementById("dureeTrajet");
     const { heures, minutes } = convertirTemps(dureeHeure);
     if (dureeElement) {
-        dureeElement.textContent = `Durée : ${heures}h ${minutes}min`;
+        dureeElement.textContent = `Temps du trajet : ${heures}h ${minutes}min`;
     }
 }
 

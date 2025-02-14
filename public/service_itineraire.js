@@ -25,6 +25,16 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
         const data = await response.json();
 
         const coordonees = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+
+        const premiereRouteLine = L.polyline(coordonees, {
+            color: 'blue',
+            weight: 4,
+            opacity: 0.7,
+            smoothFactor: 1
+        }).addTo(layerTrajet);
+
+        map.fitBounds(premiereRouteLine.getBounds());
+
         let routeCoordonnees = [start];
         let dernierPoint = start;
         let distanceParcouru = 0;
@@ -115,9 +125,9 @@ async function rechercherItineraireAutonomie(start, end, autonomie) {
             const popupContent = `
                 <div>
                     <h4>Itinéraire avec Bornes</h4>
-                    <p><strong>Distance Totale :</strong> ${distanceTotal.toFixed(2)} km</p>
-                    <p><strong>Temps total :</strong> ${tempsTrajet.toFixed(2)} h</p>
-                    <p><strong>Temps de Recharge Total :</strong> ${sommeTempsRecharge.toFixed(2)} h</p>
+                    <p><strong>Distance Trajet :</strong> ${distanceTotal.toFixed(2)} km</p>
+                    <p><strong>Temps trajet :</strong> ${tempsTrajet.toFixed(2)} h</p>
+                    <p><strong>Temps de recharge total :</strong> ${sommeTempsRecharge.toFixed(2)} h</p>
                     <p><strong>Nombre d'arrêts :</strong> ${nombreArrets}</p>
                 </div>
             `;
