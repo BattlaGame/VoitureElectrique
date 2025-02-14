@@ -12,8 +12,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const urlSoap = `http://${hostname}:${port}/trajetService?wsdl`;
-
 const service = {
     TrajetService: {
         TrajetPort: {
@@ -75,6 +73,8 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 // Service SOAP
 soap.listen(app, '/trajetService', service, xml);
 
+const urlSoap = `http://${hostname}:${port}/trajetService?wsdl`;
+
 // Client SOAP
 app.get('/calculerTrajet', (req, res) => {
     const { tempsRechargeTotal } = req.query;
@@ -100,6 +100,7 @@ app.get('/calculerTrajet', (req, res) => {
 const exportJsonRoute = require('./routes/calculeItineraire');
 app.use(exportJsonRoute);
 
+// Route pour les clé dans le .env
 app.get("/config", (req, res) => {
     res.json({
         apiKey_chargetrip: process.env.CHARGETRIP_API_KEY,
@@ -108,7 +109,6 @@ app.get("/config", (req, res) => {
     });
 });
 
-// Démarrer le serveur
 app.listen(port, () => {
     console.log(`Serveur démarré sur http://${hostname}:${port}`);
 });
