@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	const apiKey = "67ac69234802aaa070546f6a";
 	const appId = "67ac69234802aaa070546f6c";
 	const url = "https://api.chargetrip.io/graphql";
-
-	afficherChargement();
 	
 	fetch(url, {
 		method: "POST",
