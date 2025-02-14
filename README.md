@@ -40,6 +40,6 @@ Ce projet permet de calculer des itinéraires optimisés pour les véhicules él
 - Chargetrip avec GraphQL pour récupérer la liste des véhicules électriques
 
 ## Contact
-Si vous avez des questions ou des suggestions, n'hésitez pas à ouvrir une issue ou à me contacter !
+Si vous avez des questions , n'hésitez pas à me contacter !
 
 
