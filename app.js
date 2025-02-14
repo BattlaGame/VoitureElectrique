@@ -97,7 +97,7 @@ app.get('/calculerTrajet', (req, res) => {
     });
 });
 
-const exportJsonRoute = require('./routes/export-json');
+const exportJsonRoute = require('./routes/calculeItineraire');
 app.use(exportJsonRoute);
 
 // Démarrer le serveur

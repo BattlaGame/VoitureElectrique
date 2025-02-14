@@ -4,7 +4,7 @@ const turf = require('@turf/turf');
 
 const apiKey = '5b3ce3597851110001cf624886af02b406684c71ad9acdc5e62acdd2';
 
-router.get('/export-json', async (req, res) => {
+router.get('/calculeItineraire', async (req, res) => {
     const { villeStart, villeEnd, autonomie, capaciteBatterie } = req.query;
 
     if (!villeStart || !villeEnd || !autonomie) {
