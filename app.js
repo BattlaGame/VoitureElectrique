@@ -100,6 +100,14 @@ app.get('/calculerTrajet', (req, res) => {
 const exportJsonRoute = require('./routes/calculeItineraire');
 app.use(exportJsonRoute);
 
+app.get("/config", (req, res) => {
+    res.json({
+        apiKey_chargetrip: process.env.CHARGETRIP_API_KEY,
+        appId_chargetrip: process.env.CHARGETRIP_APP_ID,
+        apiKey_openserviceroute: process.env.OPENROUTESERVICE_API_KEY
+    });
+});
+
 // Démarrer le serveur
 app.listen(port, () => {
     console.log(`Serveur démarré sur http://${hostname}:${port}`);

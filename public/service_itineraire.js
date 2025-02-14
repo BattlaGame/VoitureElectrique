@@ -1,6 +1,10 @@
-const apiKey = '5b3ce3597851110001cf624886af02b406684c71ad9acdc5e62acdd2';
+
 
 async function rechercherItineraireAutonomie(start, end, autonomie) {
+    const response = await fetch("/config");
+	const config = await response.json();
+	const apiKey = config.apiKey_openserviceroute;
+
     const apiUrl = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start[1]},${start[0]}&end=${end[1]},${end[0]}`;
 
     layerBalise.clearLayers();

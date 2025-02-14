@@ -1,10 +1,13 @@
 let vehiculeSelectionne = null;
 
-document.addEventListener("DOMContentLoaded", function() {
-	const apiKey = "67ac69234802aaa070546f6a";
-	const appId = "67ac69234802aaa070546f6c";
+document.addEventListener("DOMContentLoaded", async function() {
 	const url = "https://api.chargetrip.io/graphql";
-	
+	const response = await fetch("/config");
+	const config = await response.json();
+
+	const apiKey = config.apiKey_chargetrip;
+	const appId = config.appId_chargetrip;
+
 	fetch(url, {
 		method: "POST",
 		headers: {
